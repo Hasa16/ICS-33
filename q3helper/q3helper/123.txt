@@ -1,0 +1,19 @@
+# Setup
+c-->from importlib import reload
+c-->import ttime
+c-->reload(ttime)
+c-->from ttime import Time
+
+# Test __add__
+c-->t = Time()
+e-->t+1-->12:00:01am
+e-->t-->12:00:00am
+e-->Time(23,58,6)+736-->12:10:22am
+e-->1+t-->12:00:01am
+e-->70+t-->12:01:10am
+e-->3600+t-->1:00:00am
+e-->86400+t-->12:00:00am
+e-->500+Time(4,56,23)-->5:04:43am
+e-->736+Time(23,58,6)-->12:10:22am
+^-->Time()+1.-->TypeError
+^-->1.+Time()-->TypeError

@@ -1,0 +1,21 @@
+# Setup
+c-->from importlib import reload
+c-->import q2solution
+c-->reload(q2solution)
+c-->from q2solution import expand_re, multi_search
+c-->import re
+
+# Testing expand_re
+c-->pd = dict(digit=r'[0-9]', integer=r'[=-]?#digit##digit#*')
+c-->expand_re(pd)
+==-->dict(pd.items())-->{'digit': '[0-9]', 'integer': '[=-]?(?:[0-9])(?:[0-9])*'}
+c-->pd = dict(int=r'[+-]?[0-9]+', int_range =r'#int#(..#int#)?', int_list  =r'#int_range#(,#int_range#)*', int_set =r'{#int_list#?}')
+c-->expand_re(pd)
+==-->dict(pd.items())-->{'int': '[+-]?[0-9]+', 'int_range': '(?:[+-]?[0-9]+)(..(?:[+-]?[0-9]+))?', 'int_list': '(?:(?:[+-]?[0-9]+)(..(?:[+-]?[0-9]+))?)(,(?:(?:[+-]?[0-9]+)(..(?:[+-]?[0-9]+))?))*', 'int_set': '{(?:(?:(?:[+-]?[0-9]+)(..(?:[+-]?[0-9]+))?)(,(?:(?:[+-]?[0-9]+)(..(?:[+-]?[0-9]+))?))*)?}'}
+c-->pd = dict(f='#e#',alpha='x',b='#alpha#',e='#d#',c='#b#',d='#c#',g='#f#')
+c-->expand_re(pd)
+==-->dict(pd.items())-->{'alpha': 'x', 'b': '(?:x)', 'c': '(?:(?:x))', 'd': '(?:(?:(?:x)))', 'e': '(?:(?:(?:(?:x))))', 'f': '(?:(?:(?:(?:(?:x)))))', 'g': '(?:(?:(?:(?:(?:(?:x))))))'}
+
+# Testing multi_search
+==-->multi_search(open('pats1.txt'),open('texts1.txt'))-->[(1, 'See Spot.', [1, 2]), (2, 'See Snoopy', [1]), (3, '  run.', [2]), (5, 'Run dogs run.', [1, 2, 3]), (6, 'Dogs are great.', [1, 2, 3])]
+==-->multi_search(open('pats2.txt'),open('texts2.txt'))-->[(1, 'amoeba', [1, 3]), (2, 'balance', [2, 3]), (3, 'footstool', [1, 2, 3]), (4, 'grammar', [2, 3]), (5, 'cooperate', [1, 3])]

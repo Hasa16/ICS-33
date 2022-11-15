@@ -1,0 +1,1 @@
+^E+(((P|PP|PPP|PPPP)D)*(BB)*)*C$
